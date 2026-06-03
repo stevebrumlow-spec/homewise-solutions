@@ -14,6 +14,22 @@ function Stars({ count }) {
   )
 }
 
+function TestimonialCard({ t }) {
+  return (
+    <div className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg p-6 h-full">
+      <Stars count={t.rating} />
+      <p className="text-gray-300 text-sm leading-relaxed mb-4 italic">"{t.text}"</p>
+      <div className="flex justify-between items-end">
+        <div>
+          <p className="text-white font-body font-semibold">{t.name}</p>
+          <p className="text-gray-500 text-xs">{t.city}</p>
+        </div>
+        <span className="text-gold text-xs font-body tracking-widest uppercase">{t.service}</span>
+      </div>
+    </div>
+  )
+}
+
 export default function TestimonialsCarousel() {
   const [current, setCurrent] = useState(0)
 
@@ -30,30 +46,14 @@ export default function TestimonialsCarousel() {
 
   return (
     <div>
-      {/* Desktop: show 3 */}
+      {/* Desktop: show 3 — no animation on advance to avoid flash */}
       <div className="hidden lg:grid grid-cols-3 gap-6">
-        {visible.map((t, i) => (
-          <motion.div
-            key={t.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: i * 0.1 }}
-            className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg p-6"
-          >
-            <Stars count={t.rating} />
-            <p className="text-gray-300 text-sm leading-relaxed mb-4 italic">"{t.text}"</p>
-            <div className="flex justify-between items-end">
-              <div>
-                <p className="text-white font-body font-semibold">{t.name}</p>
-                <p className="text-gray-500 text-xs">{t.city}</p>
-              </div>
-              <span className="text-gold text-xs font-body tracking-widest uppercase">{t.service}</span>
-            </div>
-          </motion.div>
+        {visible.map((t) => (
+          <TestimonialCard key={t.id} t={t} />
         ))}
       </div>
 
-      {/* Mobile: show 1 */}
+      {/* Mobile: show 1 with slide animation */}
       <div className="lg:hidden">
         <AnimatePresence mode="wait">
           <motion.div
@@ -62,17 +62,8 @@ export default function TestimonialsCarousel() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -40 }}
             transition={{ duration: 0.35 }}
-            className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg p-6"
           >
-            <Stars count={testimonials[current].rating} />
-            <p className="text-gray-300 text-sm leading-relaxed mb-4 italic">"{testimonials[current].text}"</p>
-            <div className="flex justify-between items-end">
-              <div>
-                <p className="text-white font-body font-semibold">{testimonials[current].name}</p>
-                <p className="text-gray-500 text-xs">{testimonials[current].city}</p>
-              </div>
-              <span className="text-gold text-xs tracking-widest uppercase">{testimonials[current].service}</span>
-            </div>
+            <TestimonialCard t={testimonials[current]} />
           </motion.div>
         </AnimatePresence>
       </div>
@@ -83,6 +74,8 @@ export default function TestimonialsCarousel() {
           <button
             key={i}
             onClick={() => setCurrent(i)}
+            aria-label={`Go to testimonial ${i + 1}`}
+            aria-current={i === current % testimonials.length ? 'true' : undefined}
             className={`h-2 rounded-full transition-all duration-300 ${i === current % testimonials.length ? 'bg-gold w-6' : 'bg-[#333] w-2'}`}
           />
         ))}

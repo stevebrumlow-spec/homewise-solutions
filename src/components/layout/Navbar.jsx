@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useScrollPosition } from '../../hooks/useScrollPosition'
 
@@ -15,6 +15,8 @@ export default function Navbar() {
   const [open, setOpen] = useState(false)
   const scrollY = useScrollPosition()
   const scrolled = scrollY > 80
+  const location = useLocation()
+  useEffect(() => { setOpen(false) }, [location.pathname])
 
   return (
     <>
@@ -69,6 +71,7 @@ export default function Navbar() {
               onClick={() => setOpen(!open)}
               className="md:hidden flex flex-col gap-[5px] p-2"
               aria-label="Toggle menu"
+              aria-expanded={open}
             >
               <span className={`block h-[2px] w-6 bg-white transition-all duration-300 ${open ? 'rotate-45 translate-y-[7px]' : ''}`} />
               <span className={`block h-[2px] w-6 bg-white transition-all duration-300 ${open ? 'opacity-0' : ''}`} />

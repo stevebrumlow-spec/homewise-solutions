@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from 'react'
+import { useState, useRef, useCallback, useEffect } from 'react'
 import { motion } from 'framer-motion'
 
 export default function BeforeAfterSlider({ beforeSrc, afterSrc, beforeAlt = 'Before', afterAlt = 'After' }) {
@@ -16,7 +16,17 @@ export default function BeforeAfterSlider({ beforeSrc, afterSrc, beforeAlt = 'Be
   const onMouseDown = () => { dragging.current = true }
   const onMouseMove = (e) => { if (dragging.current) updatePos(e.clientX) }
   const onMouseUp = () => { dragging.current = false }
-  const onTouchMove = (e) => { updatePos(e.touches[0].clientX) }
+
+  useEffect(() => {
+    const el = containerRef.current
+    if (!el) return
+    const handleTouchMove = (e) => {
+      e.preventDefault()
+      updatePos(e.touches[0].clientX)
+    }
+    el.addEventListener('touchmove', handleTouchMove, { passive: false })
+    return () => el.removeEventListener('touchmove', handleTouchMove)
+  }, [updatePos])
 
   return (
     <motion.div
@@ -31,7 +41,6 @@ export default function BeforeAfterSlider({ beforeSrc, afterSrc, beforeAlt = 'Be
       onMouseMove={onMouseMove}
       onMouseUp={onMouseUp}
       onMouseLeave={onMouseUp}
-      onTouchMove={onTouchMove}
     >
       {/* After (full width background) */}
       <img src={afterSrc} alt={afterAlt} className="absolute inset-0 w-full h-full object-cover" draggable={false} />

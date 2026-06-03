@@ -13,6 +13,7 @@ export default function LightboxModal({ items, currentIndex, onClose, onPrev, on
   }, [onClose, onPrev, onNext])
 
   const item = items[currentIndex]
+  if (!item) return null
 
   return (
     <AnimatePresence>
