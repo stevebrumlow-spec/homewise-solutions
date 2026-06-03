@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body {
+    @apply bg-bg-primary text-white font-body;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+@layer utilities {
+  .gold-divider {
+    @apply h-[2px] w-12 bg-gold;
+  }
+  .section-pad {
+    @apply py-20 lg:py-32;
+  }
+}
