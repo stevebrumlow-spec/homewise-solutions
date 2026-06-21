@@ -136,17 +136,6 @@ export default function Estimate() {
                 </div>
               </div>
 
-              <div>
-                <label className={labelCls}>Upload Photos (optional)</label>
-                <div className="w-full bg-[#1a1a1a] border border-dashed border-[#333] rounded-sm px-4 py-8 text-center hover:border-gold/40 transition-colors">
-                  <input type="file" multiple accept="image/*" className="hidden" id="photos" />
-                  <label htmlFor="photos" className="cursor-pointer">
-                    <p className="text-gray-500 text-sm font-body">Click to upload project photos</p>
-                    <p className="text-gray-600 text-xs font-body mt-1">JPG, PNG up to 10MB each</p>
-                  </label>
-                </div>
-              </div>
-
               {submitError && (
                 <p className="text-red-400 text-sm font-body text-center bg-red-400/10 border border-red-400/20 rounded-sm px-4 py-3">
                   {submitError}
