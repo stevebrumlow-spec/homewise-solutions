@@ -15,7 +15,7 @@ export default function CTABand({ title = "Ready to Start Your Project?", subtit
         <p className="text-gray-400 font-body text-lg mb-8">{subtitle}</p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <CTAButton to="/estimate">Get a Free Estimate</CTAButton>
-          <CTAButton href="tel:7064248498" variant="outline">Call 706-424-8498</CTAButton>
+          <CTAButton href="tel:4049226424" variant="outline">Call 404-922-6424</CTAButton>
         </div>
       </motion.div>
     </section>

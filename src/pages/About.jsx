@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+﻿import { motion } from 'framer-motion'
 import SEOMeta from '../components/ui/SEOMeta'
 import PageHero from '../components/ui/PageHero'
 import SectionLabel from '../components/ui/SectionLabel'
@@ -22,9 +22,9 @@ export default function About() {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}>
       <SEOMeta
-        title="About All Phase Renovations | Athens GA Contractor"
-        description="Learn about All Phase Renovations — Athens Georgia's locally owned and operated residential contractor. Licensed, insured, and committed to quality craftsmanship."
-        keywords="about All Phase Renovations, Athens GA contractor, local remodeling company Athens Georgia"
+        title="About HOMEWISE SOLUTIONS LLC | Athens GA Contractor"
+        description="Learn about HOMEWISE SOLUTIONS LLC — Athens Georgia's locally owned and operated residential contractor. Licensed, insured, and committed to quality craftsmanship."
+        keywords="about HOMEWISE SOLUTIONS LLC, Athens GA contractor, local remodeling company Athens Georgia"
       />
 
       <PageHero title="About Us" subtitle="Athens-born. Craft-driven. Community-focused." />
@@ -35,7 +35,7 @@ export default function About() {
           <motion.div initial={{ opacity: 0, x: -40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}>
             <SectionLabel eyebrow="Our Story" title="Athens Born, Craft Driven" />
             <div className="space-y-4 text-gray-400 font-body leading-relaxed">
-              <p>All Phase Renovations was built on a simple belief: homeowners in Athens, Georgia deserve the same quality of work you'd expect from the most expensive contractors in Atlanta — without the big-city price tag or the runaround.</p>
+              <p>HOMEWISE SOLUTIONS LLC was built on a simple belief: homeowners in Athens, Georgia deserve the same quality of work you'd expect from the most expensive contractors in Atlanta — without the big-city price tag or the runaround.</p>
               <p>We started with one truck, one crew, and a commitment to showing up on time, doing the work right, and treating every home as if it were our own. That reputation spread through Clarke County one satisfied homeowner at a time.</p>
               <p>Today we handle everything from a single bathroom remodel to whole-home renovations — always with the same hands-on attention that built our name. We're licensed, insured, and proud to be your neighbors.</p>
             </div>
@@ -43,7 +43,7 @@ export default function About() {
           <motion.div initial={{ opacity: 0, x: 40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}>
             <img
               src="https://images.unsplash.com/photo-1581244277943-fe4a9c777189?w=800&q=80"
-              alt="All Phase Renovations team at work in Athens GA"
+              alt="HOMEWISE SOLUTIONS LLC team at work in Athens GA"
               loading="lazy"
               className="rounded-lg w-full object-cover"
             />
@@ -92,7 +92,7 @@ export default function About() {
               >
                 <img
                   src={member.photo}
-                  alt={`${member.name} — All Phase Renovations Athens GA`}
+                  alt={`${member.name} — HOMEWISE SOLUTIONS LLC Athens GA`}
                   loading="lazy"
                   className="w-24 h-24 rounded-full object-cover mx-auto mb-4 border-2 border-gold"
                 />

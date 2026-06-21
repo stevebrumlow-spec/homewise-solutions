@@ -1,3 +1,4 @@
+﻿import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useForm } from 'react-hook-form'
 import SEOMeta from '../components/ui/SEOMeta'
@@ -12,17 +13,33 @@ const errorCls = 'text-red-400 text-xs mt-1 font-body'
 export default function Contact() {
   const { register, handleSubmit, formState: { errors, isSubmitSuccessful }, reset } = useForm()
 
-  const onSubmit = (data) => {
-    console.log('Contact form submission:', data)
-    reset()
+  const [submitError, setSubmitError] = useState(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const onSubmit = async (data) => {
+    setIsSubmitting(true)
+    setSubmitError(null)
+    try {
+      const res = await fetch('https://formspree.io/f/mrewzjvo', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+      if (!res.ok) throw new Error('Failed to send')
+      reset()
+    } catch {
+      setSubmitError('Something went wrong. Please call us at 404-922-6424 or try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}>
       <SEOMeta
-        title="Contact All Phase Renovations | Athens GA · 706-424-8498"
-        description="Contact All Phase Renovations in Athens, GA. Call 706-424-8498 or send us a message. Free estimates, fast response. Serving Athens and Northeast Georgia."
-        keywords="contact All Phase Renovations, Athens GA contractor phone number, remodeling company Athens Georgia contact"
+        title="Contact HOMEWISE SOLUTIONS LLC | Athens GA · 404-922-6424"
+        description="Contact HOMEWISE SOLUTIONS LLC in Athens, GA. Call 404-922-6424 or send us a message. Free estimates, fast response. Serving Athens and Northeast Georgia."
+        keywords="contact HOMEWISE SOLUTIONS LLC, Athens GA contractor phone number, remodeling company Athens Georgia contact"
       />
 
       <PageHero title="Contact Us" subtitle="We respond within 24 hours. Free estimates, no obligation." />
@@ -63,8 +80,18 @@ export default function Contact() {
                   <textarea {...register('message', { required: 'Message is required' })} rows={5} placeholder="Tell us about your project *" className={inputCls + ' resize-none'} />
                   {errors.message && <p className={errorCls}>{errors.message.message}</p>}
                 </div>
-                <button type="submit" className="w-full bg-gold hover:bg-gold-hover text-[#111] font-body font-bold text-sm tracking-widest uppercase py-4 rounded-sm transition-colors">
-                  Send Message
+                {submitError && (
+                  <p className="text-red-400 text-sm font-body text-center bg-red-400/10 border border-red-400/20 rounded-sm px-4 py-3">
+                    {submitError}
+                  </p>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-gold hover:bg-gold-hover text-[#111] font-body font-bold text-sm tracking-widest uppercase py-4 rounded-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isSubmitting ? 'Sending...' : 'Send Message'}
                 </button>
               </form>
             )}
@@ -76,8 +103,8 @@ export default function Contact() {
             <div className="mt-8 space-y-8">
               <div>
                 <p className="text-gray-500 text-xs uppercase tracking-widest font-body mb-2">Phone</p>
-                <a href="tel:7064248498" className="font-display text-3xl text-gold tracking-wider hover:text-gold-hover transition-colors">
-                  706-424-8498
+                <a href="tel:4049226424" className="font-display text-3xl text-gold tracking-wider hover:text-gold-hover transition-colors">
+                  404-922-6424
                 </a>
               </div>
               <div>

@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+﻿import { motion } from 'framer-motion'
 import SEOMeta from '../components/ui/SEOMeta'
 import PageHero from '../components/ui/PageHero'
 import SectionLabel from '../components/ui/SectionLabel'
@@ -11,7 +11,7 @@ export default function Services() {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}>
       <SEOMeta
-        title="Remodeling Services Athens GA | All Phase Renovations"
+        title="Remodeling Services Athens GA | HOMEWISE SOLUTIONS LLC"
         description="Kitchen remodeling, bathroom renovation, flooring, painting, decks, drywall, epoxy floors, and more in Athens GA. Licensed and insured contractor. Free estimates."
         keywords="painter Athens GA, flooring Athens Georgia, kitchen remodeling Athens GA, bathroom remodeling Athens GA, deck builder Athens GA"
       />

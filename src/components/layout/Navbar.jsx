@@ -7,6 +7,7 @@ const links = [
   { to: '/', label: 'Home' },
   { to: '/services', label: 'Services' },
   { to: '/gallery', label: 'Gallery' },
+  { to: '/videos', label: 'Videos' },
   { to: '/about', label: 'About' },
   { to: '/contact', label: 'Contact' },
 ]
@@ -27,8 +28,8 @@ export default function Navbar() {
           <div className="flex items-center justify-between h-16 lg:h-20">
             {/* Logo */}
             <Link to="/" className="flex flex-col leading-none">
-              <span className="font-display text-2xl text-gold tracking-widest">ALL PHASE</span>
-              <span className="font-body text-[10px] text-gray-400 tracking-[0.25em] uppercase">Renovations</span>
+              <span className="font-display text-2xl text-gold tracking-widest">HOMEWISE</span>
+              <span className="font-body text-[10px] text-gray-400 tracking-[0.25em] uppercase">Solutions LLC</span>
             </Link>
 
             {/* Desktop links */}
@@ -59,7 +60,7 @@ export default function Navbar() {
             {/* Desktop CTA */}
             <div className="hidden md:block">
               <a
-                href="tel:7064248498"
+                href="tel:4049226424"
                 className="bg-gold hover:bg-gold-hover text-[#111111] font-body font-bold text-sm tracking-widest uppercase px-6 py-3 rounded-sm transition-colors duration-200"
               >
                 Call Now
@@ -105,10 +106,10 @@ export default function Navbar() {
               </NavLink>
             ))}
             <a
-              href="tel:7064248498"
+              href="tel:4049226424"
               className="mt-4 bg-gold text-[#111111] font-body font-bold text-sm tracking-widest uppercase px-10 py-4 rounded-sm"
             >
-              Call 706-424-8498
+              Call 404-922-6424
             </a>
             <Link
               to="/estimate"

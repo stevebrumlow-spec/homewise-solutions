@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const faqs = [
@@ -8,7 +8,7 @@ const faqs = [
   },
   {
     q: 'Are you licensed and insured?',
-    a: 'Absolutely. All Phase Renovations is fully licensed and insured in the state of Georgia. We carry general liability insurance and workers\' compensation on all jobs.',
+    a: 'Absolutely. HOMEWISE SOLUTIONS LLC is fully licensed and insured in the state of Georgia. We carry general liability insurance and workers\' compensation on all jobs.',
   },
   {
     q: 'What areas do you serve?',
@@ -32,7 +32,7 @@ const faqs = [
   },
   {
     q: 'Do you offer any warranty on your work?',
-    a: 'We stand behind our workmanship. All Phase Renovations provides a one-year warranty on labor for all completed projects. Material warranties vary by manufacturer.',
+    a: 'We stand behind our workmanship. HOMEWISE SOLUTIONS LLC provides a one-year warranty on labor for all completed projects. Material warranties vary by manufacturer.',
   },
 ]
 

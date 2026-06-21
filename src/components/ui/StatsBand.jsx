@@ -25,8 +25,8 @@ function Counter({ target, suffix = '', duration = 2000 }) {
 }
 
 const stats = [
-  { label: 'Projects Completed', target: 500, suffix: '+' },
-  { label: 'Years of Experience', target: 15, suffix: '+' },
+  { label: 'Projects Completed', target: 100, suffix: '+' },
+  { label: 'Years of Experience', target: 25, suffix: '+' },
   { label: 'Licensed & Insured', target: 100, suffix: '%' },
   { label: 'Customer Rating', target: 4, suffix: '.9★' },
 ]

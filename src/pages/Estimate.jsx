@@ -1,3 +1,4 @@
+﻿import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useForm } from 'react-hook-form'
 import SEOMeta from '../components/ui/SEOMeta'
@@ -12,16 +13,32 @@ const labelCls = 'block text-gray-400 font-body text-xs uppercase tracking-wides
 export default function Estimate() {
   const { register, handleSubmit, formState: { errors, isSubmitSuccessful }, reset } = useForm()
 
-  const onSubmit = (data) => {
-    console.log('Estimate request:', data)
-    reset()
+  const [submitError, setSubmitError] = useState(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const onSubmit = async (data) => {
+    setIsSubmitting(true)
+    setSubmitError(null)
+    try {
+      const res = await fetch('https://formspree.io/f/mrewzjvo', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+      if (!res.ok) throw new Error('Failed to send')
+      reset()
+    } catch {
+      setSubmitError('Something went wrong. Please call us at 404-922-6424 or try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}>
       <SEOMeta
-        title="Free Estimate Request | All Phase Renovations Athens GA"
-        description="Request a free renovation estimate from All Phase Renovations in Athens, GA. No obligation. We respond within 24 hours. Serving Athens and Northeast Georgia."
+        title="Free Estimate Request | HOMEWISE SOLUTIONS LLC Athens GA"
+        description="Request a free renovation estimate from HOMEWISE SOLUTIONS LLC in Athens, GA. No obligation. We respond within 24 hours. Serving Athens and Northeast Georgia."
         keywords="free estimate Athens GA, remodeling quote Athens Georgia, renovation estimate Athens GA contractor"
       />
 
@@ -54,8 +71,8 @@ export default function Estimate() {
               <p className="text-gray-400 font-body leading-relaxed mb-6">
                 Thank you for reaching out. We'll review your project details and get back to you within 24 hours with your free estimate.
               </p>
-              <a href="tel:7064248498" className="text-gold font-body font-bold text-lg hover:text-gold-hover transition-colors">
-                Or call us now: 706-424-8498
+              <a href="tel:4049226424" className="text-gold font-body font-bold text-lg hover:text-gold-hover transition-colors">
+                Or call us now: 404-922-6424
               </a>
             </motion.div>
           ) : (
@@ -130,12 +147,22 @@ export default function Estimate() {
                 </div>
               </div>
 
-              <button type="submit" className="w-full bg-gold hover:bg-gold-hover text-[#111] font-body font-bold text-sm tracking-widest uppercase py-5 rounded-sm transition-colors">
-                Submit Estimate Request
+              {submitError && (
+                <p className="text-red-400 text-sm font-body text-center bg-red-400/10 border border-red-400/20 rounded-sm px-4 py-3">
+                  {submitError}
+                </p>
+              )}
+
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full bg-gold hover:bg-gold-hover text-[#111] font-body font-bold text-sm tracking-widest uppercase py-5 rounded-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isSubmitting ? 'Sending...' : 'Submit Estimate Request'}
               </button>
 
               <p className="text-center text-gray-600 text-xs font-body">
-                Or call us directly: <a href="tel:7064248498" className="text-gold hover:text-gold-hover">706-424-8498</a>
+                Or call us directly: <a href="tel:4049226424" className="text-gold hover:text-gold-hover">404-922-6424</a>
               </p>
             </form>
           )}

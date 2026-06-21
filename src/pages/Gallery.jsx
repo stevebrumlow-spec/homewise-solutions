@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import SEOMeta from '../components/ui/SEOMeta'
 import PageHero from '../components/ui/PageHero'
@@ -8,7 +8,7 @@ import LightboxModal from '../components/ui/LightboxModal'
 import CTABand from '../components/ui/CTABand'
 import { galleryItems, beforeAfterPairs } from '../data/gallery'
 
-const FILTERS = ['all', 'kitchen', 'bathroom', 'flooring', 'painting', 'decks', 'exterior']
+const FILTERS = ['all', 'kitchen', 'bathroom', 'flooring', 'painting', 'decks', 'exterior', 'carpentry']
 
 export default function Gallery() {
   const [filter, setFilter] = useState('all')
@@ -19,7 +19,7 @@ export default function Gallery() {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}>
       <SEOMeta
-        title="Project Gallery | All Phase Renovations Athens GA"
+        title="Project Gallery | HOMEWISE SOLUTIONS LLC Athens GA"
         description="Browse our portfolio of completed renovation and remodeling projects in Athens, GA. Kitchen remodels, bathroom renovations, flooring, painting, decks, and more."
         keywords="renovation gallery Athens GA, remodeling photos Athens Georgia, contractor portfolio Athens GA"
       />

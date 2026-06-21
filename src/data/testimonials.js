@@ -4,7 +4,7 @@ export const testimonials = [
     name: 'Sarah M.',
     city: 'Athens, GA',
     rating: 5,
-    text: 'All Phase transformed our outdated kitchen into something straight out of a magazine. They were professional, on time, and the quality of work exceeded our expectations. Will absolutely use them again.',
+    text: 'HomeWise Solutions transformed our outdated kitchen into something straight out of a magazine. They were professional, on time, and the quality of work exceeded our expectations. Will absolutely use them again.',
     service: 'Kitchen Remodel',
   },
   {

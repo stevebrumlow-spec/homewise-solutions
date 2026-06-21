@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+﻿import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import SEOMeta from '../components/ui/SEOMeta'
 import SectionLabel from '../components/ui/SectionLabel'
@@ -11,14 +11,14 @@ import { featuredServices } from '../data/services'
 import { serviceAreas } from '../data/serviceAreas'
 import { beforeAfterPairs } from '../data/gallery'
 
-const HERO_PHOTO = 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1800&q=85'
+const HERO_PHOTO = '/painting-ceiling.jpg'
 
 export default function Home() {
   return (
     <>
       <SEOMeta
-        title="Athens GA Renovation & Remodeling Experts | All Phase Renovations"
-        description="All Phase Renovations — Athens Georgia's trusted contractor for kitchen remodels, bathroom renovations, flooring, painting, decks, and more. Call 706-424-8498 for a free estimate."
+        title="Athens GA Renovation & Remodeling Experts | HOMEWISE SOLUTIONS LLC"
+        description="HOMEWISE SOLUTIONS LLC — Athens Georgia's trusted contractor for kitchen remodels, bathroom renovations, flooring, painting, decks, and more. Call 404-922-6424 for a free estimate."
         keywords="remodeling Athens GA, contractor Athens Georgia, home renovation Athens GA, kitchen remodeling Athens GA, bathroom remodeling Athens GA"
       />
 
@@ -45,7 +45,7 @@ export default function Home() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <CTAButton to="/estimate">Get a Free Estimate</CTAButton>
-            <CTAButton href="tel:7064248498" variant="outline">Call 706-424-8498</CTAButton>
+            <CTAButton href="tel:4049226424" variant="outline">Call 404-922-6424</CTAButton>
           </div>
         </motion.div>
 
@@ -87,7 +87,7 @@ export default function Home() {
       {/* Why Choose Us */}
       <section className="section-pad bg-[#1a1a1a]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionLabel eyebrow="Why All Phase" title="Built on Trust & Craftsmanship" center />
+          <SectionLabel eyebrow="Why HomeWise" title="Built on Trust & Craftsmanship" center />
           <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               { icon: '🏆', title: 'Premium Craftsmanship', desc: "Every project is executed with the precision and attention to detail you'd expect from a luxury builder." },
@@ -158,10 +158,10 @@ export default function Home() {
             <p className="font-display text-3xl text-[#111] tracking-wider">Need Emergency Home Repairs?</p>
           </div>
           <a
-            href="tel:7064248498"
+            href="tel:4049226424"
             className="flex-shrink-0 bg-[#111] text-gold font-bold text-sm tracking-widest uppercase px-8 py-4 rounded-sm hover:bg-[#222] transition-colors"
           >
-            Call Now: 706-424-8498
+            Call Now: 404-922-6424
           </a>
         </div>
       </section>

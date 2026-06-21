@@ -1,7 +1,7 @@
-# All Phase Renovations Website
+﻿# HOMEWISE SOLUTIONS LLC Website
 
-Premium residential contractor website for All Phase Renovations, Athens GA.  
-Phone: **706-424-8498**
+Premium residential contractor website for HOMEWISE SOLUTIONS LLC, Athens GA.  
+Phone: **404-922-6424**
 
 ## Stack
 
@@ -43,7 +43,7 @@ Build output goes to `dist/`. Preview runs at http://localhost:4173.
 ## Customization Guide
 
 ### Change Phone Number
-Search for `706-424-8498` and `7064248498` across the project and replace with the new number.  
+Search for `404-922-6424` and `4049226424` across the project and replace with the new number.  
 Key files: `Navbar.jsx`, `Footer.jsx`, `FloatingCTA.jsx`, `Home.jsx`, `Contact.jsx`, `Estimate.jsx`, `index.html`
 
 ### Edit Services

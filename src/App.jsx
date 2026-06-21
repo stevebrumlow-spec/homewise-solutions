@@ -10,6 +10,7 @@ import Gallery from './pages/Gallery'
 import About from './pages/About'
 import Contact from './pages/Contact'
 import Estimate from './pages/Estimate'
+import Videos from './pages/Videos'
 
 function AnimatedRoutes() {
   const location = useLocation()
@@ -19,6 +20,7 @@ function AnimatedRoutes() {
         <Route path="/" element={<Home />} />
         <Route path="/services" element={<Services />} />
         <Route path="/gallery" element={<Gallery />} />
+        <Route path="/videos" element={<Videos />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/estimate" element={<Estimate />} />

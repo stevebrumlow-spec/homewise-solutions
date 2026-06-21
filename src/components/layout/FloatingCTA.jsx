@@ -17,7 +17,7 @@ export default function FloatingCTA() {
   return (
     <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 flex h-14 shadow-2xl">
       <a
-        href="tel:7064248498"
+        href="tel:4049226424"
         className="flex-1 flex items-center justify-center gap-2 bg-gold text-[#111111] font-bold text-sm tracking-wide"
       >
         <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
