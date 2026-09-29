@@ -1,3 +1,4 @@
+import ProjectImage from './ProjectImage'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 
@@ -9,10 +10,10 @@ export default function ServiceCard({ service, index = 0 }) {
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.08 }}
       whileHover={{ scale: 1.03 }}
-      className="relative rounded-lg overflow-hidden group cursor-pointer"
+      className="relative rounded-lg overflow-hidden group "
       style={{ aspectRatio: '4/3' }}
     >
-      <img
+      <ProjectImage
         src={service.photo}
         alt={`${service.name} Athens GA`}
         loading="lazy"
@@ -26,12 +27,12 @@ export default function ServiceCard({ service, index = 0 }) {
         <h3 className="font-display text-2xl text-white tracking-wider leading-tight mb-1">
           {service.name}
         </h3>
-        <p className="text-gray-300 text-sm leading-relaxed mb-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <p className="text-gray-300 text-sm leading-relaxed mb-3 transition-opacity duration-300">
           {service.shortDesc}
         </p>
         <Link
-          to="/estimate"
-          className="inline-flex items-center gap-2 text-gold text-xs font-body font-bold tracking-widest uppercase border-b border-gold pb-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          to={`/estimate?service=${encodeURIComponent(service.id)}`}
+          className="inline-flex items-center gap-2 text-gold text-xs font-body font-bold tracking-widest uppercase border-b border-gold pb-0.5 transition-opacity duration-300"
         >
           Get a Quote <span>→</span>
         </Link>

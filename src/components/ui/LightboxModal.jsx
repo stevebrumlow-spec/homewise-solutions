@@ -28,6 +28,7 @@ export default function LightboxModal({ items, currentIndex, onClose, onPrev, on
           {/* Close */}
           <button
             onClick={onClose}
+            aria-label="Close gallery"
             className="absolute -top-12 right-0 text-white/60 hover:text-white text-3xl font-light z-10"
           >
             ✕
@@ -52,7 +53,8 @@ export default function LightboxModal({ items, currentIndex, onClose, onPrev, on
           {/* Prev */}
           <button
             onClick={onPrev}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-14 w-10 h-10 rounded-full bg-[#1a1a1a] border border-[#333] flex items-center justify-center text-white hover:border-gold hover:text-gold transition-colors"
+            aria-label="Previous image"
+            className="absolute left-0 top-1/2 -translate-y-1/2 translate-x-2 w-10 h-10 rounded-full bg-[#1a1a1a] border border-[#333] flex items-center justify-center text-white hover:border-gold hover:text-gold transition-colors"
           >
             ←
           </button>
@@ -60,7 +62,8 @@ export default function LightboxModal({ items, currentIndex, onClose, onPrev, on
           {/* Next */}
           <button
             onClick={onNext}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-14 w-10 h-10 rounded-full bg-[#1a1a1a] border border-[#333] flex items-center justify-center text-white hover:border-gold hover:text-gold transition-colors"
+            aria-label="Next image"
+            className="absolute right-0 top-1/2 -translate-y-1/2 -translate-x-2 w-10 h-10 rounded-full bg-[#1a1a1a] border border-[#333] flex items-center justify-center text-white hover:border-gold hover:text-gold transition-colors"
           >
             →
           </button>

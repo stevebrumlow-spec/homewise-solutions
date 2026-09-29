@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
-import { Link, NavLink, useLocation } from 'react-router-dom'
+import { useState } from 'react'
+import { Link, NavLink } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useScrollPosition } from '../../hooks/useScrollPosition'
 
@@ -16,8 +16,6 @@ export default function Navbar() {
   const [open, setOpen] = useState(false)
   const scrollY = useScrollPosition()
   const scrolled = scrollY > 80
-  const location = useLocation()
-  useEffect(() => { setOpen(false) }, [location.pathname])
 
   return (
     <>

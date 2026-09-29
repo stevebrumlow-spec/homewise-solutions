@@ -22,6 +22,17 @@ export default function SEOMeta({ title, description, keywords }) {
     const kwEl = keywords ? setMeta('keywords', keywords) : null
     const ogTitleEl = setOG('og:title', title)
     const ogDescEl = description ? setOG('og:description', description) : null
+    const url = `https://homewisesolutionsga.com${window.location.pathname}`
+    let canonical = document.querySelector('link[rel="canonical"]')
+    if (!canonical) {
+      canonical = document.createElement('link')
+      canonical.rel = 'canonical'
+      document.head.appendChild(canonical)
+    }
+    canonical.href = url
+    setOG('og:url', url)
+    setOG('og:type', 'website')
+    setOG('og:image', 'https://homewisesolutionsga.com/images/kitchen-after-1280.webp')
 
     return () => {
       document.title = prevTitle
@@ -29,6 +40,7 @@ export default function SEOMeta({ title, description, keywords }) {
       if (kwEl) kwEl.content = ''
       if (ogTitleEl) ogTitleEl.content = ''
       if (ogDescEl) ogDescEl.content = ''
+      canonical.remove()
     }
   }, [title, description, keywords])
 

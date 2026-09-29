@@ -52,29 +52,31 @@ Open `src/data/services.js`. Each service object has:
 - `shortDesc` — shown on service card hover
 - `fullDesc` — full description for service detail
 - `benefits` — bullet points
-- `photo` — Unsplash URL (replace with a hosted image URL when you have real photos)
+- `photo` — optimized local image path or externally hosted photo URL
 - `featured: true/false` — featured services appear on the homepage preview
 
 ### Edit Testimonials
-Open `src/data/testimonials.js`. Replace the placeholder reviews with real customer names and quotes.
+The homepage links to the business's Nextdoor recommendations. The old placeholder review data is not displayed. Publish direct quotes only after checking their source and permission to reuse them.
 
 ### Replace Gallery Photos
-Open `src/data/gallery.js`. Replace the `src` Unsplash URLs with real project photo URLs.  
-Host your photos on Cloudinary, S3, or upload directly to Hostinger and use the URL.  
+Store original project photos in `assets/originals/`. With Python and Pillow installed, run `python scripts/optimize-images.py` to regenerate WebP variants and their responsive-image manifest. Originals stay in Git but are excluded from the published build.
+Open `src/data/gallery.js` and use `/images/<name>-1280.webp` for `src`. The gallery and service cards select the appropriate responsive variant automatically. External URLs also work.
 For before/after pairs, set `beforeSrc` and `afterSrc` on the same item.
 
 ### Edit Service Areas
 Open `src/data/serviceAreas.js`. Edit the `serviceAreas` array.
 
-### Update Stats Numbers
-Open `src/components/ui/StatsBand.jsx`. Update the `target` values in the `stats` array:
-- `500` → actual projects completed
-- `15` → actual years in business
-- `100` → keep at 100 (Licensed & Insured is always 100%)
-- `4` → review rating (currently shows "4.9★")
+### Update Business Highlights
+Open `src/components/ui/StatsBand.jsx`. Update the static `label` and `value` entries using verified business information. Ratings and insurance statements should never animate through misleading intermediate values. Add a rating only with a verified source and review count.
+
+### Verify Lead Forms
+Run `npm test` for both forms' rejected-response, network-failure, retry, and pending-request checks. Requests are simulated in tests and do not send customer inquiries. A successful UI state means Formspree accepted the request; actual email delivery and account configuration must be checked separately.
+
+### Windows Build/Test Troubleshooting
+If Vite's config bundler cannot launch a child process in a restricted Windows environment, use `npm run build -- --configLoader native` and `npm test -- --configLoader native --pool threads --maxWorkers 1` with Node 24 LTS.
 
 ### Add Google Maps Embed
-Open `src/pages/Contact.jsx`. Find the map placeholder `<div>` (search for "Replace with Google Maps embed") and replace it with an `<iframe>` from maps.google.com → Share → Embed a map.
+The Contact page lists the service area without a map placeholder. If adding a map, use a verified service-area location; do not imply there is a customer-facing office without confirming it.
 
 ### Change Colors or Fonts
 Edit `tailwind.config.js` for color tokens and `src/index.css` for the Google Fonts import URL.

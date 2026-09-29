@@ -1,4 +1,4 @@
-﻿import { useState } from 'react'
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useForm } from 'react-hook-form'
 import SEOMeta from '../components/ui/SEOMeta'
@@ -11,8 +11,9 @@ const inputCls = 'w-full bg-[#1a1a1a] border border-[#2a2a2a] text-white font-bo
 const errorCls = 'text-red-400 text-xs mt-1 font-body'
 
 export default function Contact() {
-  const { register, handleSubmit, formState: { errors, isSubmitSuccessful }, reset } = useForm()
+  const { register, handleSubmit, formState: { errors }, reset } = useForm()
 
+  const [submitted, setSubmitted] = useState(false)
   const [submitError, setSubmitError] = useState(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -22,11 +23,12 @@ export default function Contact() {
     try {
       const res = await fetch('https://formspree.io/f/mrewzjvo', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify(data),
       })
       if (!res.ok) throw new Error('Failed to send')
       reset()
+      setSubmitted(true)
     } catch {
       setSubmitError('Something went wrong. Please call us at 404-922-6424 or try again.')
     } finally {
@@ -50,8 +52,8 @@ export default function Contact() {
           {/* Form */}
           <div>
             <SectionLabel eyebrow="Get In Touch" title="Send Us a Message" />
-            {isSubmitSuccessful ? (
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mt-8 p-8 bg-[#1a1a1a] border border-gold/30 rounded-lg text-center">
+            {submitted ? (
+              <motion.div role="status" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mt-8 p-8 bg-[#1a1a1a] border border-gold/30 rounded-lg text-center">
                 <div className="text-gold text-4xl mb-4">✓</div>
                 <h3 className="font-display text-2xl text-white tracking-wider mb-2">Message Sent!</h3>
                 <p className="text-gray-400 text-sm">We'll be in touch within 24 hours.</p>
@@ -59,29 +61,34 @@ export default function Contact() {
             ) : (
               <form onSubmit={handleSubmit(onSubmit)} className="mt-8 space-y-5">
                 <div>
-                  <input {...register('name', { required: 'Name is required' })} placeholder="Full Name *" className={inputCls} />
-                  {errors.name && <p className={errorCls}>{errors.name.message}</p>}
+                  <label htmlFor="contact-name" className="block text-gray-300 text-sm mb-2">Full Name *</label>
+                  <input id="contact-name" aria-invalid={!!errors.name} aria-describedby={errors.name ? 'contact-name-error' : undefined} autoComplete="name" {...register('name', { required: 'Name is required' })} placeholder="Full Name *" className={inputCls} />
+                  {errors.name && <p id="contact-name-error" role="alert" className={errorCls}>{errors.name.message}</p>}
                 </div>
                 <div>
-                  <input {...register('phone', { required: 'Phone number is required' })} type="tel" placeholder="Phone Number *" className={inputCls} />
-                  {errors.phone && <p className={errorCls}>{errors.phone.message}</p>}
+                  <label htmlFor="contact-phone" className="block text-gray-300 text-sm mb-2">Phone Number *</label>
+                  <input id="contact-phone" aria-invalid={!!errors.phone} aria-describedby={errors.phone ? 'contact-phone-error' : undefined} autoComplete="tel" {...register('phone', { required: 'Phone number is required' })} type="tel" placeholder="Phone Number *" className={inputCls} />
+                  {errors.phone && <p id="contact-phone-error" role="alert" className={errorCls}>{errors.phone.message}</p>}
                 </div>
                 <div>
-                  <input {...register('email', { required: 'Email is required', pattern: { value: /^\S+@\S+$/i, message: 'Invalid email address' } })} type="email" placeholder="Email Address *" className={inputCls} />
-                  {errors.email && <p className={errorCls}>{errors.email.message}</p>}
+                  <label htmlFor="contact-email" className="block text-gray-300 text-sm mb-2">Email Address *</label>
+                  <input id="contact-email" aria-invalid={!!errors.email} aria-describedby={errors.email ? 'contact-email-error' : undefined} autoComplete="email" {...register('email', { required: 'Email is required', pattern: { value: /^\S+@\S+$/i, message: 'Invalid email address' } })} type="email" placeholder="Email Address *" className={inputCls} />
+                  {errors.email && <p id="contact-email-error" role="alert" className={errorCls}>{errors.email.message}</p>}
                 </div>
                 <div>
-                  <select {...register('service')} className={inputCls}>
+                  <label htmlFor="contact-service" className="block text-gray-300 text-sm mb-2">Service Needed (optional)</label>
+                  <select id="contact-service" aria-invalid={!!errors.service} aria-describedby={errors.service ? 'contact-service-error' : undefined} {...register('service')} className={inputCls}>
                     <option value="">Service Needed (optional)</option>
                     {services.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
                   </select>
                 </div>
                 <div>
-                  <textarea {...register('message', { required: 'Message is required' })} rows={5} placeholder="Tell us about your project *" className={inputCls + ' resize-none'} />
-                  {errors.message && <p className={errorCls}>{errors.message.message}</p>}
+                  <label htmlFor="contact-message" className="block text-gray-300 text-sm mb-2">Tell us about your project *</label>
+                  <textarea id="contact-message" aria-invalid={!!errors.message} aria-describedby={errors.message ? 'contact-message-error' : undefined} {...register('message', { required: 'Message is required' })} rows={5} placeholder="Tell us about your project *" className={inputCls + ' resize-none'} />
+                  {errors.message && <p id="contact-message-error" role="alert" className={errorCls}>{errors.message.message}</p>}
                 </div>
                 {submitError && (
-                  <p className="text-red-400 text-sm font-body text-center bg-red-400/10 border border-red-400/20 rounded-sm px-4 py-3">
+                  <p role="alert" className="text-red-400 text-sm font-body text-center bg-red-400/10 border border-red-400/20 rounded-sm px-4 py-3">
                     {submitError}
                   </p>
                 )}
@@ -119,13 +126,6 @@ export default function Contact() {
                 <p className="text-gray-500 text-xs uppercase tracking-widest font-body mb-2">Location</p>
                 <p className="text-gray-300 text-sm font-body">Athens, Georgia</p>
                 <p className="text-gray-500 text-xs font-body mt-1">Serving all of Clarke County and surrounding areas</p>
-              </div>
-              {/* Map placeholder */}
-              <div className="bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg h-48 flex items-center justify-center">
-                <div className="text-center">
-                  <p className="text-gray-500 text-xs font-body uppercase tracking-widest mb-2">Athens, GA</p>
-                  <p className="text-gray-600 text-xs font-body">Replace with Google Maps embed</p>
-                </div>
               </div>
               <div>
                 <p className="text-gray-500 text-xs uppercase tracking-widest font-body mb-3">Service Areas</p>

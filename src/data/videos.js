@@ -47,7 +47,7 @@ export const videos = [
     category: 'kitchen-remodel',
     videoUrl: '/videos/kitchen-reno.MP4',
     type: 'local',
-    thumbnail: '/kitchen-after.jpeg',
+    thumbnail: '/images/kitchen-after-1280.webp',
   },
   {
     id: 2,
@@ -56,7 +56,7 @@ export const videos = [
     category: 'kitchen-remodel',
     videoUrl: '/videos/kitchen2-reno.MP4',
     type: 'local',
-    thumbnail: '/kitchen-before.jpeg',
+    thumbnail: '/images/kitchen-before-1280.webp',
   },
   {
     id: 3,
@@ -65,7 +65,7 @@ export const videos = [
     category: 'deck-build',
     videoUrl: '/videos/deck-builds.MP4',
     type: 'local',
-    thumbnail: '/deck-1.jpg',
+    thumbnail: '/images/deck-1-1280.webp',
   },
   {
     id: 4,
@@ -74,7 +74,7 @@ export const videos = [
     category: 'walkthrough',
     videoUrl: '/videos/room-addition.MP4',
     type: 'local',
-    thumbnail: '/porch-after.jpeg',
+    thumbnail: '/images/porch-after-1280.webp',
   },
 
   // --- ADD YOUR VIDEOS BELOW THIS LINE ---
