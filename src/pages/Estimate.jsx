@@ -1,4 +1,4 @@
-﻿import { useState } from 'react'
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useForm } from 'react-hook-form'
 import SEOMeta from '../components/ui/SEOMeta'
@@ -11,8 +11,14 @@ const errorCls = 'text-red-400 text-xs mt-1 font-body'
 const labelCls = 'block text-gray-400 font-body text-xs uppercase tracking-widest mb-2'
 
 export default function Estimate() {
-  const { register, handleSubmit, formState: { errors, isSubmitSuccessful }, reset } = useForm()
+  const { register, handleSubmit, formState: { errors }, reset } = useForm({
+    defaultValues: {
+      service: services.some(service => service.id === new URLSearchParams(window.location.search).get('service'))
+        ? new URLSearchParams(window.location.search).get('service') : '',
+    },
+  })
 
+  const [submitted, setSubmitted] = useState(false)
   const [submitError, setSubmitError] = useState(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -22,11 +28,12 @@ export default function Estimate() {
     try {
       const res = await fetch('https://formspree.io/f/mrewzjvo', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify(data),
       })
       if (!res.ok) throw new Error('Failed to send')
       reset()
+      setSubmitted(true)
     } catch {
       setSubmitError('Something went wrong. Please call us at 404-922-6424 or try again.')
     } finally {
@@ -64,8 +71,8 @@ export default function Estimate() {
         <div className="max-w-3xl mx-auto px-4">
           <SectionLabel eyebrow="Request a Quote" title="Tell Us About Your Project" center />
 
-          {isSubmitSuccessful ? (
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mt-12 p-10 bg-[#1a1a1a] border border-gold/30 rounded-lg text-center">
+          {submitted ? (
+            <motion.div role="status" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mt-12 p-10 bg-[#1a1a1a] border border-gold/30 rounded-lg text-center">
               <div className="text-gold text-5xl mb-4">✓</div>
               <h2 className="font-display text-3xl text-white tracking-wider mb-4">Estimate Request Received!</h2>
               <p className="text-gray-400 font-body leading-relaxed mb-6">
@@ -79,42 +86,42 @@ export default function Estimate() {
             <form onSubmit={handleSubmit(onSubmit)} className="mt-12 space-y-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
-                  <label className={labelCls}>Full Name *</label>
-                  <input {...register('name', { required: 'Name is required' })} placeholder="John Smith" className={inputCls} />
-                  {errors.name && <p className={errorCls}>{errors.name.message}</p>}
+                  <label htmlFor="estimate-name" className={labelCls}>Full Name *</label>
+                  <input id="estimate-name" aria-invalid={!!errors.name} aria-describedby={errors.name ? 'estimate-name-error' : undefined} autoComplete="name" {...register('name', { required: 'Name is required' })} placeholder="John Smith" className={inputCls} />
+                  {errors.name && <p id="estimate-name-error" role="alert" className={errorCls}>{errors.name.message}</p>}
                 </div>
                 <div>
-                  <label className={labelCls}>Phone Number *</label>
-                  <input {...register('phone', { required: 'Phone is required' })} type="tel" placeholder="(706) 555-0000" className={inputCls} />
-                  {errors.phone && <p className={errorCls}>{errors.phone.message}</p>}
+                  <label htmlFor="estimate-phone" className={labelCls}>Phone Number *</label>
+                  <input id="estimate-phone" aria-invalid={!!errors.phone} aria-describedby={errors.phone ? 'estimate-phone-error' : undefined} autoComplete="tel" {...register('phone', { required: 'Phone is required' })} type="tel" placeholder="(706) 555-0000" className={inputCls} />
+                  {errors.phone && <p id="estimate-phone-error" role="alert" className={errorCls}>{errors.phone.message}</p>}
                 </div>
               </div>
 
               <div>
-                <label className={labelCls}>Email Address *</label>
-                <input {...register('email', { required: 'Email is required', pattern: { value: /^\S+@\S+$/i, message: 'Invalid email' } })} type="email" placeholder="you@email.com" className={inputCls} />
-                {errors.email && <p className={errorCls}>{errors.email.message}</p>}
+                <label htmlFor="estimate-email" className={labelCls}>Email Address *</label>
+                <input id="estimate-email" aria-invalid={!!errors.email} aria-describedby={errors.email ? 'estimate-email-error' : undefined} autoComplete="email" {...register('email', { required: 'Email is required', pattern: { value: /^\S+@\S+$/i, message: 'Invalid email' } })} type="email" placeholder="you@email.com" className={inputCls} />
+                {errors.email && <p id="estimate-email-error" role="alert" className={errorCls}>{errors.email.message}</p>}
               </div>
 
               <div>
-                <label className={labelCls}>Service Type *</label>
-                <select {...register('service', { required: 'Please select a service' })} className={inputCls}>
+                <label htmlFor="estimate-service" className={labelCls}>Service Type *</label>
+                <select id="estimate-service" aria-invalid={!!errors.service} aria-describedby={errors.service ? 'estimate-service-error' : undefined} {...register('service', { required: 'Please select a service' })} className={inputCls}>
                   <option value="">Select a service...</option>
                   {services.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
                 </select>
-                {errors.service && <p className={errorCls}>{errors.service.message}</p>}
+                {errors.service && <p id="estimate-service-error" role="alert" className={errorCls}>{errors.service.message}</p>}
               </div>
 
               <div>
-                <label className={labelCls}>Project Description *</label>
-                <textarea {...register('description', { required: 'Please describe your project' })} rows={5} placeholder="Describe your project in as much detail as possible — the more you share, the more accurate your estimate will be." className={inputCls + ' resize-none'} />
-                {errors.description && <p className={errorCls}>{errors.description.message}</p>}
+                <label htmlFor="estimate-description" className={labelCls}>Project Description *</label>
+                <textarea id="estimate-description" aria-invalid={!!errors.description} aria-describedby={errors.description ? 'estimate-description-error' : undefined} {...register('description', { required: 'Please describe your project' })} rows={5} placeholder="Describe your project in as much detail as possible — the more you share, the more accurate your estimate will be." className={inputCls + ' resize-none'} />
+                {errors.description && <p id="estimate-description-error" role="alert" className={errorCls}>{errors.description.message}</p>}
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
-                  <label className={labelCls}>Estimated Budget</label>
-                  <select {...register('budget')} className={inputCls}>
+                  <label htmlFor="estimate-budget" className={labelCls}>Estimated Budget</label>
+                  <select id="estimate-budget" aria-invalid={!!errors.budget} aria-describedby={errors.budget ? 'estimate-budget-error' : undefined} {...register('budget')} className={inputCls}>
                     <option value="">Select a range...</option>
                     <option value="under1k">Under $1,000</option>
                     <option value="1k-5k">$1,000 – $5,000</option>
@@ -124,8 +131,8 @@ export default function Estimate() {
                   </select>
                 </div>
                 <div>
-                  <label className={labelCls}>Desired Timeline</label>
-                  <select {...register('timeline')} className={inputCls}>
+                  <label htmlFor="estimate-timeline" className={labelCls}>Desired Timeline</label>
+                  <select id="estimate-timeline" aria-invalid={!!errors.timeline} aria-describedby={errors.timeline ? 'estimate-timeline-error' : undefined} {...register('timeline')} className={inputCls}>
                     <option value="">Select timeline...</option>
                     <option value="asap">As soon as possible</option>
                     <option value="1month">Within 1 month</option>
@@ -137,7 +144,7 @@ export default function Estimate() {
               </div>
 
               {submitError && (
-                <p className="text-red-400 text-sm font-body text-center bg-red-400/10 border border-red-400/20 rounded-sm px-4 py-3">
+                <p role="alert" className="text-red-400 text-sm font-body text-center bg-red-400/10 border border-red-400/20 rounded-sm px-4 py-3">
                   {submitError}
                 </p>
               )}

@@ -29,12 +29,17 @@ function AnimatedRoutes() {
   )
 }
 
+function Navigation() {
+  const location = useLocation()
+  return <Navbar key={location.pathname} />
+}
+
 export default function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
       <div className="min-h-screen flex flex-col bg-bg-primary">
-        <Navbar />
+        <Navigation />
         <main className="flex-1">
           <AnimatedRoutes />
         </main>

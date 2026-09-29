@@ -1,17 +1,16 @@
-﻿import { motion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import SEOMeta from '../components/ui/SEOMeta'
 import SectionLabel from '../components/ui/SectionLabel'
 import ServiceCard from '../components/ui/ServiceCard'
 import StatsBand from '../components/ui/StatsBand'
 import BeforeAfterSlider from '../components/ui/BeforeAfterSlider'
-import TestimonialsCarousel from '../components/ui/TestimonialsCarousel'
 import CTAButton from '../components/ui/CTAButton'
 import { featuredServices } from '../data/services'
 import { serviceAreas } from '../data/serviceAreas'
 import { beforeAfterPairs } from '../data/gallery'
 
-const HERO_PHOTO = '/painting-ceiling.jpg'
+const HERO_PHOTO = '/images/painting-ceiling-1280.webp'
 
 export default function Home() {
   return (
@@ -24,7 +23,7 @@ export default function Home() {
 
       {/* Hero */}
       <section
-        className="relative min-h-screen flex items-center justify-center bg-cover bg-center"
+        className="relative min-h-[85svh] pt-28 pb-20 flex items-center justify-center bg-cover bg-center"
         style={{ backgroundImage: `url(${HERO_PHOTO})` }}
       >
         <div className="absolute inset-0 bg-black/55" />
@@ -37,11 +36,11 @@ export default function Home() {
           <p className="text-gold font-body font-semibold text-xs tracking-[0.4em] uppercase mb-6">
             ATHENS, GEORGIA · LICENSED & INSURED
           </p>
-          <h1 className="font-display text-6xl sm:text-7xl lg:text-9xl text-white tracking-wider leading-none mb-6">
-            Athens Georgia's Trusted Renovation & Remodeling Experts
+          <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl text-white tracking-wider leading-none mb-6">
+            Home Repairs & Remodeling in Athens, GA
           </h1>
           <p className="text-gray-300 font-body text-lg lg:text-xl max-w-2xl mx-auto mb-10">
-            Premium craftsmanship. Honest pricing. Results that last.
+            Painting, flooring, bathrooms, decks, and dependable help with the projects on your list.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <CTAButton to="/estimate">Get a Free Estimate</CTAButton>
@@ -117,11 +116,11 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionLabel eyebrow="Our Work" title="Our Work Speaks For Itself" center />
           <div className="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {beforeAfterPairs.map(item => (
+            {beforeAfterPairs.slice(0, 3).map(item => (
               <BeforeAfterSlider key={item.id} beforeSrc={item.beforeSrc} afterSrc={item.afterSrc} />
             ))}
           </div>
-          <p className="text-center mt-6 text-gray-500 text-sm">Drag the handle to reveal before & after</p>
+          <p className="text-center mt-6 text-gray-500 text-sm">Drag the handle or use the arrow keys to compare before and after</p>
         </div>
       </section>
 
@@ -130,7 +129,8 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionLabel eyebrow="Reviews" title="What Our Customers Say" center />
           <div className="mt-12">
-            <TestimonialsCarousel />
+            <p className="text-center text-gray-300 mb-6">Read recommendations from neighbors on our Nextdoor business page.</p>
+            <div className="text-center"><a href="https://nextdoor.com/pages/homewise-solutions-llc-athens-ga/" target="_blank" rel="noopener noreferrer" className="inline-block border border-gold text-gold px-6 py-3 rounded-sm hover:bg-gold hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold">Read Customer Recommendations ↗</a></div>
           </div>
         </div>
       </section>

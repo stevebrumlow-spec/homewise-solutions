@@ -1,32 +1,9 @@
-import { useState, useRef, useCallback, useEffect } from 'react'
+import ProjectImage from './ProjectImage'
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 
 export default function BeforeAfterSlider({ beforeSrc, afterSrc, beforeAlt = 'Before', afterAlt = 'After' }) {
   const [pos, setPos] = useState(50)
-  const containerRef = useRef(null)
-  const dragging = useRef(false)
-
-  const updatePos = useCallback((clientX) => {
-    const rect = containerRef.current?.getBoundingClientRect()
-    if (!rect) return
-    const x = Math.max(0, Math.min(clientX - rect.left, rect.width))
-    setPos((x / rect.width) * 100)
-  }, [])
-
-  const onMouseDown = () => { dragging.current = true }
-  const onMouseMove = (e) => { if (dragging.current) updatePos(e.clientX) }
-  const onMouseUp = () => { dragging.current = false }
-
-  useEffect(() => {
-    const el = containerRef.current
-    if (!el) return
-    const handleTouchMove = (e) => {
-      e.preventDefault()
-      updatePos(e.touches[0].clientX)
-    }
-    el.addEventListener('touchmove', handleTouchMove, { passive: false })
-    return () => el.removeEventListener('touchmove', handleTouchMove)
-  }, [updatePos])
 
   return (
     <motion.div
@@ -34,24 +11,22 @@ export default function BeforeAfterSlider({ beforeSrc, afterSrc, beforeAlt = 'Be
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
-      ref={containerRef}
-      className="relative rounded-lg overflow-hidden select-none cursor-col-resize"
+      className="relative rounded-lg overflow-hidden select-none focus-within:ring-2 focus-within:ring-gold"
       style={{ aspectRatio: '16/9' }}
-      onMouseDown={onMouseDown}
-      onMouseMove={onMouseMove}
-      onMouseUp={onMouseUp}
-      onMouseLeave={onMouseUp}
     >
       {/* After (full width background) */}
-      <img src={afterSrc} alt={afterAlt} className="absolute inset-0 w-full h-full object-cover" draggable={false} />
+      <ProjectImage src={afterSrc} loading="lazy" decoding="async" alt={afterAlt} className="absolute inset-0 w-full h-full object-cover" draggable={false} />
       <div className="absolute top-3 right-3 bg-black/60 text-white text-xs font-bold tracking-widest uppercase px-2 py-1 rounded">After</div>
 
       {/* Before (clipped) */}
-      <div className="absolute inset-0 overflow-hidden" style={{ width: `${pos}%` }}>
-        <img src={beforeSrc} alt={beforeAlt} className="absolute inset-0 w-full h-full object-cover" draggable={false} />
+      <div className="absolute inset-0 overflow-hidden" style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}>
+        <ProjectImage src={beforeSrc} loading="lazy" decoding="async" alt={beforeAlt} className="absolute inset-0 w-full h-full object-cover" draggable={false} />
         <div className="absolute top-3 left-3 bg-black/60 text-white text-xs font-bold tracking-widest uppercase px-2 py-1 rounded">Before</div>
       </div>
 
+      <input type="range" min="0" max="100" value={pos} onChange={e => setPos(Number(e.target.value))}
+        aria-label="Before and after comparison" aria-valuetext={`${pos}% before image`}
+        className="absolute inset-0 m-0 w-full h-full opacity-0 z-20 cursor-col-resize" />
       {/* Handle */}
       <div
         className="absolute top-0 bottom-0 w-1 bg-gold cursor-col-resize"

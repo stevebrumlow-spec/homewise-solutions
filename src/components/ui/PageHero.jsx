@@ -1,7 +1,7 @@
-﻿import { motion } from 'framer-motion'
+import { motion } from 'framer-motion'
 
 export default function PageHero({ title, subtitle, photo }) {
-  const bg = photo || '/painting-ceiling.jpg'
+  const bg = photo || '/images/painting-ceiling-1280.webp'
   return (
     <section
       className="relative flex items-center justify-center h-[50vh] min-h-[320px] bg-cover bg-center"
